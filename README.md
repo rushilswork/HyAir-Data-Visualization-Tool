@@ -1,5 +1,11 @@
 # HyAir-AirPollution-DataVisualization
 
+![Uploading Screenshot 2024-02-10 150210.png…]()
+![Uploading Screenshot 2024-02-10 150226.png…]()
+![Uploading Screenshot 2024-02-10 150236.png…]()
+
+
+
 The Air Pollution Data Visualization Tool is a powerful and informative application designed to visually represent and analyze air pollution data. With the increasing concerns about air quality and its impact on public health and the environment, this tool provides a comprehensive way to understand, explore, and communicate air pollution data.
 
 Using interactive charts, maps, and graphs, the tool allows users to explore and analyze various pollutants such as PM2.5, PM10, SO2, O3, CO, and NO2 in different regions or specific locations. The tool fetches real-time or historical air pollution data from reliable sources and presents it in a visually appealing and easy-to-understand format.
