@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Air Quality Map</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><img src="images/logo.ico" class="logo-icon"></li>
+      <li class="logo">HyAir</li>
+      <li style="margin-left: 50%;"><a class="active" href="index.html">Home</a></li>
+      <li style="margin-left: 60px"><a href="about.html">About</a></li>
+      <li style="margin-left: 70px"><a href="news.html">News</a></li>
+      <li style="margin-left: -40%;">
+        <div id="file-container">
+          <input type="file" id="myfile" name="myfile" style="display:none">
+          <label for="myfile" id="file-label">Choose a file</label>
+        </div>
+      </li>
+
+    </ul>
+  </nav>
+
+
+  <div class="image-container">
+    <img id="hyderabad-link" src="images/Hyd.jpeg" class="city-image">
+    <img id="mumbai-link" src="images/mumbai.jpeg" class="city-image">
+    <img id="delhi-link" src="images/delhi.jpeg" class="city-image">
+    <img id="ahmedabad-link" src="images/ahmedabad.jpeg" class="city-image">
+  </div>
+  <br><br><br> <br>
+  <h4 class="city-label" id="hyderabad-link">Hyderabad</h4>
+  <h4 style="margin-left: 250px;" class="city-label" id="mumbai-link">Mumbai</h4>
+  <h4 style="margin-left: 270px;" class="city-label" id="delhi-link">Delhi</h4>
+  <h4 style="margin-left: 270px;" class="city-label" id="ahmedabad-link">Ahmedabad</h4>
+
+  <br><br><br>
+
+  <div id="map"></div>
+  <div id="popout-container">
+    <label id="myLocationButton">My Location</label>
+    <h3 style="color: rgb(0, 255, 0);">Pollutant Levels for <span id="region-name">Regions</span></h3>
+
+  </div>
+
+  <div id="popout-container2">
+    <div id="pollutant-levels2" class="chart-container" style="margin-left: 20px;margin-top: 30px;">
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 0px;">PM2.5 Levels: </p>
+          <div id="pm25-chart" class="circle-chart"></div>
+        </div>
+      </div>
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 100px;">PM10 Levels: </p>
+          <div id="pm10-chart" class="circle-chart"></div>
+        </div>
+      </div>
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 200px;">SO2 Levels: </p>
+          <div id="so2-chart" class="circle-chart"></div>
+        </div>
+      </div>
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 300px;">O3 Levels: </p>
+          <div id="o3-chart" class="circle-chart"></div>
+        </div>
+      </div>
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 400px;">CO Levels: </p>
+          <div id="co-chart" class="circle-chart"></div>
+        </div>
+      </div>
+      <div class="graph-container">
+        <div class="chart-item">
+          <p style="position: relative; left: 500px;">NO2 Levels: </p>
+          <div id="no2-chart" class="circle-chart"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Vertical bar and bar labels -->
+  <div class="vertical-bar"></div>
+  <div class="bar-label">
+    <span>Good</span>
+    <br><br><br><br><br>
+    <span>Moderate</span>
+    <br><br><br><br>
+    <span>Poor</span>
+  </div>
+
+  <div id="content-container">
+    <div id="table-container">
+      <h3 class="rankings-header" style="margin-left: 210px;">City Rankings</h3>
+      <table id="data-table">
+        <thead>
+          <tr>
+            <th>City Name</th>
+            <th>AQI</th>
+          </tr>
+        </thead>
+        <tbody id="data-body">
+          <!-- Your table body content... -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="chart-container">
+      <canvas id="bar-chart"></canvas>
+    </div>
+  </div>
+  <div id="alert-container"></div>
+
+  <div id="live-time"></div>
+
+
+
+
+  <footer>
+    Copyright - 2023 by HyAir
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-chartjs-3d@1.2.0/dist/chartjs-plugin-chartjs-3d.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

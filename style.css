@@ -1,0 +1,459 @@
+/* Additional CSS for the provided HTML layout */
+
+body {
+  font-family: 'Prompt', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 25, 1) 100%
+  );
+  width: 100%; /* Adjusted to full width */
+}
+
+nav {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 25, 1) 100%
+  );
+  color: white;
+  padding: 2px 0;
+  height: fit-content;
+}
+
+nav ul {
+  list-style: none;
+  font-size: x-large;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  /* Use space-between to separate logo and menu items */
+}
+li.ul:hover {
+  color: rgb(60, 255, 0);
+  transition: 0.5s;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+}
+
+.logo-icon {
+  margin-left: 40px;
+  margin-right: 40px;
+  height: 50px;
+  width: 50px;
+}
+
+.logo {
+  font-size: x-large;
+  line-height: 80px; /* Adjust padding as needed */
+  font-weight: bold;
+  margin-right: 60px;
+}
+li.logo:hover {
+  color: rgb(60, 255, 0);
+  transition: 0.5s;
+}
+
+.image-container {
+  position: relative;
+  top: 150px;
+  margin-left: 20px;
+  overflow: hidden;
+}
+
+.city-image {
+  border-radius: 60px;
+  width: 16%;
+  height: 16%;
+  margin-left: 30px;
+  margin-right: 80px;
+  animation: scaleImage 2s infinite;
+}
+
+.city-label {
+  font-size: large;
+  position: relative;
+  color: #ffffff;
+  left: -100px;
+}
+
+#map {
+  margin-top: 100px;
+  margin-left: 120px;
+  border-radius: 10px;
+  height: 623px;
+  width: 750px;
+}
+
+#popout-container {
+  position: absolute;
+  top: 65%;
+  left: 79%;
+  width: 350px;
+  height: 600px;
+  margin-top: 500px;
+  color: rgb(0, 255, 17);
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 25, 1) 100%
+  );
+  color: rgb(0, 255, 17);
+  box-shadow: 0 0 10px rgb(255, 255, 255); /* Add a box shadow with some transparency */
+}
+
+#popout-container2 {
+  position: relative;
+  left: 120px;
+  width: 1070px;
+  margin-top: 20px;
+  padding-right: 100px;
+  border-radius: 5px;
+  background-color: #878787;
+  color: rgb(0, 0, 0);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+.chart-item {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.circle-chart {
+  display: inline-block;
+  margin: 0 auto;
+  /* Center the circular chart */
+  max-width: 100%;
+  margin-left: 100px;
+  /* Limit the width to prevent overflow */
+}
+
+/* Custom marker styles */
+.custom-text-box {
+  background-image: url(images/greeen.ico);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  /* Marker color */
+  font-size: 12px;
+  /* Marker size */
+  /*text-shadow: 3px 3px 3px #3fc75f;*/
+  /* Optional text shadow */
+}
+
+.custom-yellow-text-box {
+  background-image: url(images/yelloww.ico);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  /* Marker color */
+  font-size: 12px;
+  /* Marker size */
+  /* Optional text shadow */
+}
+
+.custom-red-text-box {
+  background-image: url(images/reddd.ico);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  /* Marker color */
+  font-size: 12px;
+  /* Marker size */
+  /* Optional text shadow */
+}
+.air-index-text {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+}
+
+/* Vertical bar styles */
+.vertical-bar {
+  position: absolute;
+  top: 790px;
+  left: 20px;
+  width: 20px;
+  height: 300px;
+  background: linear-gradient(to bottom, #00ff00 0%, #ffff00 50%, #ff0000 100%);
+  border-radius: 10px;
+}
+
+.bar-label {
+  position: absolute;
+  top: 747px;
+  left: 43px;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.bar-label span {
+  position: relative;
+  display: block;
+  top: 50px;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.graph-container {
+  flex-basis: calc(16.66% - 20px);
+  /* Distribute equally among 6 columns (100% / 6) and account for margins */
+  text-align: center;
+}
+
+.circle-chart {
+  display: inline-block;
+  margin: 0 auto;
+  /* Center the circular chart */
+  max-width: 100%;
+  /* Limit the width to prevent overflow */
+}
+
+.circle-chart {
+  display: inline-block;
+  margin: 0 auto;
+  /* Center the circular chart */
+  max-width: 100%;
+  /* Limit the width to prevent overflow */
+}
+
+h3 {
+  color: rgb(0, 0, 0);
+}
+
+h4 {
+  position: relative;
+  left: -90px;
+  color: rgb(0, 0, 0);
+  display: inline-block;
+  text-size-adjust: auto;
+  margin-left: 220px;
+  text-align: justify;
+  top: 50px;
+}
+
+h4:hover {
+  color: #00ff00;
+}
+
+h6 {
+  color: #00ff00;
+  text-align: center;
+}
+
+@keyframes scaleImage {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#popout-container h3:hover {
+  color: #ffffff;
+}
+
+#file-container {
+  margin: 20px;
+}
+
+#myfile {
+  display: none;
+  /* Hide the default file input */
+}
+
+#file-label {
+  background-color: #bdbdbd;
+  color: rgb(0, 0, 0);
+  padding: 5px 11px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: medium;
+}
+
+#file-label:hover {
+  background-color: #00ff00;
+}
+
+#myLocationButton {
+  position: relative;
+  top: 10px;
+  background-color: #bdbdbd;
+  margin-left: 110px;
+  color: rgb(0, 0, 0);
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#myLocationButton:hover {
+  background-color: #00ff00;
+}
+
+footer {
+  position: relative;
+  height: 100px;
+  width: 100%;
+  text-align: center;
+  left: -15px;
+  line-height: 100px;
+  color: #00ff00;
+  font-size: 20px;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 25, 1) 100%
+  );
+}
+
+/* Add any other styles as needed */
+div h1 {
+  position: relative;
+  top: 100px;
+  left: 30px;
+  text-align: center;
+  color: #00ff00;
+}
+div h1:hover {
+  color: #00ff00;
+}
+.content {
+  position: relative;
+  top: 130px;
+  left: 130px;
+  width: 1000px;
+  text-align: justify;
+}
+#content-container {
+  display: flex;
+  align-items: center;
+}
+
+#table-container {
+  width: 40%;
+  margin-top: 20px;
+  margin-left: 80px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 25, 1) 100%
+  );
+  box-shadow: 0 0 5px rgb(255, 255, 255);
+}
+
+table {
+  width: 100%;
+  font-size: 12px; /* Adjust the font size for smaller text */
+}
+
+th,
+td {
+  padding: 5px; /* Adjust the padding for a more compact layout */
+}
+
+th {
+  border-radius: 5%;
+  text-align: center;
+  background-color: #878787;
+  color: black;
+  box-shadow: 0 0 2px rgb(255, 255, 255);
+}
+
+td {
+  border-radius: 5%;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  box-shadow: 0 0 2px rgb(255, 255, 255);
+  background-color: #ffffffd2;
+}
+
+th:hover {
+  background: #00ff00c2;
+}
+
+td:hover {
+  background: #ffffffc2;
+}
+
+.rankings-header {
+  font-size: 16px; /* Adjust the font size for the header */
+  color: #00ff00;
+}
+
+#chart-container {
+  margin-left: 20px;
+  width: 47%; /* Adjust the width of the chart */
+  height: 100px; /* Adjust the height of the chart */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.alert {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  border-radius: 5px;
+  color: #000000;
+  font-weight: bold;
+  text-align: center;
+  z-index: 9999;
+}
+
+.alert.success {
+  background-color: #00ff00e7;
+}
+
+.alert.error {
+  background-color: #f44336;
+}
+/* Add your existing styles here */
+#live-time {
+  background-color: #00ff00e7;
+  padding: 10px;
+  border-radius: 5%;
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  font-size: 18px;
+  color: #000000;
+  z-index: 9999; /* Set a high z-index to ensure it is on top */
+}

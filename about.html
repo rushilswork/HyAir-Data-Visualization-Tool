@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Air Quality Map</title>
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
+  <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-chartjs-3d@1.2.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@200;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 25, 1) 100%);
+    }
+
+    nav {
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 25, 1) 100%);
+      color: white;
+      padding: 2px 0;
+      height: fit-content;
+    }
+
+    nav ul {
+      list-style: none;
+      font-size: x-large;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      /* Use space-between to separate logo and menu items */
+    }
+
+    li.ul:hover {
+      color: rgb(60, 255, 0);
+      transition: 0.5s;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+    }
+
+    .logo-icon {
+      margin-left: 40px;
+      margin-right: 40px;
+      height: 50px;
+      width: 50px;
+    }
+
+    .logo {
+      font-size: x-large;
+      line-height: 80px;
+      /* Adjust padding as needed */
+      font-weight: bold;
+      margin-right: 60px;
+    }
+
+    li.logo:hover {
+      color: rgb(60, 255, 0);
+      transition: 0.5s;
+    }
+
+    h3 {
+      color: rgba(255, 255, 255, 0.886);
+    }
+
+    div h1 {
+      position: absolute;
+      top: 100px;
+      left: 29%;
+      text-align: center;
+      color: #00FF00;
+    }
+
+    div h1:hover {
+      color: #00FF00;
+    }
+
+    .content {
+      position: relative;
+      top: 130px;
+      left: 130px;
+      width: 1100px;
+      text-align: justify;
+    }
+
+    footer {
+      position: absolute;
+      margin-bottom: 10px;
+      margin-top: 120px;
+      height: 100px;
+      width: 100%;
+      text-align: center;
+      left: -15px;
+      line-height: 100px;
+      color: #00ff00;
+      font-size: 20px;
+      z-index: 1;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 25, 1) 100%);
+    }
+
+    #live-time {
+      background-color: #00ff00e7;
+      padding: 10px;
+      border-radius: 5%;
+      position: fixed;
+      top: 100px;
+      right: 10px;
+      font-size: 18px;
+      color: #000000;
+      z-index: 9999;
+      /* Set a high z-index to ensure it is on top */
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li><img src="images/logo.ico" class="logo-icon"></li>
+      <li class="logo">HyAir</li>
+      <li style="margin-left: 50%;"><a class="active" href="index.html">Home</a></li>
+      <li style="margin-left: 60px"><a href="about.html">About</a></li>
+      <li style="margin-left: 70px"><a href="news.html">News</a></li>
+    </ul>
+  </nav>
+  <div>
+    <h1>AIR POLLUTION DATA VISUALIZATION</h1>
+    <div class="content" style="font-style: normal;">
+      <h3>Welcome to our Air Pollution Data Visualization website! We are a team of passionate individuals dedicated to
+        raising awareness about air pollution and its impact on our environment and health. Our mission is to provide a
+        user-friendly platform that enables users to explore, analyze, and visualize air pollution data in an intuitive
+        and informative manner.
+
+        At our website, we strive to make complex air pollution data accessible to a wide range of users, including
+        researchers, policymakers, and the general public. Through interactive visualizations, maps, and charts, we aim
+        to present the data in a visually engaging and comprehensible format, facilitating better understanding and
+        informed decision-making.
+
+        Our team consists of multidisciplinary experts with backgrounds in environmental science, data analysis, and web
+        development. We combine our knowledge and skills to design and develop innovative solutions for presenting air
+        pollution data in a meaningful way. By leveraging the power of technology and data visualization techniques, we
+        aim to empower individuals and organizations to make informed choices and contribute to a cleaner and healthier
+        environment.</h3>
+
+      <h3>We are committed to continuously improving our website and expanding its functionalities to provide an
+        enriching experience for our users. We value user feedback and encourage suggestions for enhancements or
+        additional features that would further enhance the usefulness of our platform.</h3>
+
+    </div>
+  </div>
+  <div id="live-time"></div>
+  <footer>
+    Copyright - 2023 by HyAir
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+  <script src="script.js"></script>
+  <script>
+    function updateLiveTime() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+      var minutes = currentTime.getMinutes();
+      var seconds = currentTime.getSeconds();
+
+      // Format the time in 24-hour format
+      var formattedTime =
+        leadingZero(hours) + ':' + leadingZero(minutes) + ':' + leadingZero(seconds);
+
+      // Update the HTML element with the live time
+      document.getElementById('live-time').textContent = 'Live Time: ' + formattedTime;
+    }
+
+    // Function to add leading zero to single-digit numbers
+    function leadingZero(number) {
+      return number < 10 ? '0' + number : number;
+    }
+
+    // Update the live time every second
+    setInterval(updateLiveTime, 1000);
+  </script>
+
+</body>
+
+</html>
