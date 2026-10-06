@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { naqiSubIndex, naqi, bandFor, aqiFor, parseUpload, toCsv } from '../js/aqi.js'
+import { naqiSubIndex, naqi, bandFor, aqiFor, parseUpload, toCsv, BANDS, contrastRatio, textOn } from '../js/aqi.js'
 
 test('NAQI sub-index hits band edges', () => {
   assert.equal(naqiSubIndex('pm2_5', 0), 0)
@@ -55,4 +55,18 @@ test('upload parser accepts valid rows and reports bad ones', () => {
 
 test('csv escaping', () => {
   assert.equal(toCsv([['a,b', 'c"d', 1]]), '"a,b","c""d",1')
+})
+
+test('contrast helper matches known WCAG values', () => {
+  assert.equal(Math.round(contrastRatio('#000000', '#ffffff')), 21)
+  assert.equal(contrastRatio('#777777', '#777777'), 1)
+})
+
+test('every AQI band colour gets AA-readable text (>= 4.5:1)', () => {
+  for (const std of ['us', 'in']) {
+    for (const band of BANDS[std]) {
+      const ratio = contrastRatio(band.color, textOn(band.color))
+      assert.ok(ratio >= 4.5, `${std} ${band.label} ${band.color} only ${ratio.toFixed(2)}`)
+    }
+  }
 })

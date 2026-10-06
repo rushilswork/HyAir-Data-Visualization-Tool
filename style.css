@@ -69,7 +69,6 @@ button:hover, .file:hover, select:hover { border-color: var(--accent); }
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
   font-weight: 800; font-size: 0.95rem; color: #10161f; border: 3px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); transition: transform 0.15s;
-  text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
 }
 .aq-marker:hover, .aq-marker.sel { transform: scale(1.18); border-color: #fff; }
 
@@ -119,3 +118,5 @@ footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 2
   #updated { margin-left: 0; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.leaflet-container .leaflet-control-attribution a { color: #00557a; }

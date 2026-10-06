@@ -8,13 +8,42 @@ async function getJson(url) {
   return res.json()
 }
 
+// Readings only change hourly, so reuse them for a few minutes (per tab) to save API calls on reloads.
+const TTL_MS = 5 * 60 * 1000
+const cacheKey = (places) => `hyair:v1:${places.map((p) => `${p.lat.toFixed(3)},${p.lon.toFixed(3)}`).join('|')}`
+
+function readCache(key) {
+  try {
+    const { t, data } = JSON.parse(sessionStorage.getItem(key))
+    return Date.now() - t < TTL_MS ? data : null
+  } catch {
+    return null // missing, expired, corrupt or storage unavailable
+  }
+}
+
+function writeCache(key, data) {
+  try {
+    sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), data }))
+  } catch {
+    /* storage full or blocked: just skip caching */
+  }
+}
+
 /** Latest reading for many places in one request. Returns an array aligned with `places`. */
-export async function fetchCurrent(places) {
+export async function fetchCurrent(places, { fresh = false } = {}) {
+  const key = cacheKey(places)
+  const cached = fresh ? null : readCache(key)
+  const current = cached ?? (await requestCurrent(places))
+  if (!cached) writeCache(key, current)
+  return places.map((p, i) => ({ ...p, current: current[i]?.current ?? null, units: current[i]?.units }))
+}
+
+async function requestCurrent(places) {
   const lat = places.map((p) => p.lat).join(',')
   const lon = places.map((p) => p.lon).join(',')
   const json = await getJson(`${BASE}?latitude=${lat}&longitude=${lon}&current=${CURRENT}&timezone=auto`)
   const list = Array.isArray(json) ? json : [json]
-  return places.map((p, i) => ({ ...p, current: list[i]?.current ?? null, units: list[i]?.current_units }))
+  return places.map((p, i) => ({ current: list[i]?.current ?? null, units: list[i]?.current_units }))
 }
 
 /** Hourly series: 3 days of history + 3 days of forecast for one place. */

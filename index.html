@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HyAir - Live Air Quality Map</title>
   <meta name="description" content="Live air quality across Indian cities: map, rankings, 72-hour forecast and health guidance.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HyAir - Live Air Quality Map">
+  <meta property="og:description" content="Live air quality across Indian cities: map, rankings, 72-hour forecast and health guidance.">
+  <meta property="og:url" content="https://rushilswork.github.io/HyAir-Data-Visualization-Tool/">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0b1017">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
@@ -46,7 +52,7 @@
     <div class="grid">
       <section class="card map-card" aria-label="Map">
         <div id="map"></div>
-        <div class="legend" id="legend" aria-label="Legend"></div>
+        <div class="legend" id="legend" role="group" aria-label="Legend"></div>
       </section>
 
       <aside class="card detail" id="detail" aria-live="polite">

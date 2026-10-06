@@ -1,6 +1,6 @@
 import { CITIES } from './cities.js'
 import { fetchCurrent, fetchHourly } from './api.js'
-import { POLLUTANTS, aqiFor, bandFor, parseUpload, toCsv, BANDS } from './aqi.js'
+import { POLLUTANTS, aqiFor, bandFor, parseUpload, toCsv, BANDS, textOn } from './aqi.js'
 
 const $ = (id) => document.getElementById(id)
 const state = {
@@ -106,7 +106,7 @@ function renderMap() {
     const v = metricValue(place)
     const icon = L.divIcon({
       className: 'aq-marker-wrap',
-      html: `<div class="aq-marker${i === state.selected ? ' sel' : ''}" style="background:${band.color}">${fmt(v === null ? null : Math.round(v))}</div>`,
+      html: `<div class="aq-marker${i === state.selected ? ' sel' : ''}" style="background:${band.color};color:${textOn(band.color)}">${fmt(v === null ? null : Math.round(v))}</div>`,
       iconSize: [44, 44],
     })
     const m = L.marker([place.lat, place.lon], { icon, title: `${place.name}: ${band.label}`, keyboard: true })
@@ -155,7 +155,7 @@ function renderDetail() {
   $('d-aqi').textContent = fmt(aqi)
   $('d-band').textContent = band.label
   $('d-badge').style.background = band.color
-  $('d-badge').style.color = ['#f1c40f', '#9acd32', '#2ecc71'].includes(band.color) ? '#10161f' : '#fff'
+  $('d-badge').style.color = textOn(band.color)
   $('d-advice').textContent = band.advice + (dominant ? ` Main driver: ${POLLUTANTS[dominant].label}.` : '')
   const grid = $('d-poll')
   grid.replaceChildren()
@@ -215,7 +215,7 @@ function renderRanking() {
     const tr = el('tr', { tabindex: '0', class: r.i === state.selected ? 'sel' : '', onclick: () => select(r.i, true), onkeydown: (e) => (e.key === 'Enter' ? select(r.i, true) : null) },
       el('td', {}, String(rank + 1)),
       el('td', {}, r.p.name),
-      el('td', { style: { background: band.color, color: ['#f1c40f', '#9acd32', '#2ecc71'].includes(band.color) ? '#10161f' : '#fff', fontWeight: '700' } }, String(fmt(Math.round(r.v)))),
+      el('td', { style: { background: band.color, color: textOn(band.color), fontWeight: '700' } }, String(fmt(Math.round(r.v)))),
       el('td', {}, band.label))
     body.append(tr)
   })
@@ -331,9 +331,9 @@ function render() {
 }
 
 /* ---------- data ---------- */
-async function loadLive(initialSelect) {
+async function loadLive(initialSelect, { fresh = false } = {}) {
   try {
-    const places = await fetchCurrent(CITIES.map(({ id, name, lat, lon }) => ({ id, name, lat, lon })))
+    const places = await fetchCurrent(CITIES.map(({ id, name, lat, lon }) => ({ id, name, lat, lon })), { fresh })
     const custom = state.places.filter((p) => p.custom)
     state.places = places.filter((p) => p.current).concat(custom)
     state.source = 'live'
@@ -439,7 +439,7 @@ function boot() {
       if (pt.current) addCustom(pt), loadHourly()
     }
   })
-  setInterval(() => { if (state.source === 'live') loadLive() }, 10 * 60 * 1000)
+  setInterval(() => { if (state.source === 'live') loadLive(undefined, { fresh: true }) }, 10 * 60 * 1000)
 }
 
 boot()
