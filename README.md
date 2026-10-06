@@ -2,6 +2,12 @@
 
 Interactive air quality explorer for 14 Indian cities, built with plain ES modules (no build step).
 
+**Live demo: https://rushilswork.github.io/HyAir-Data-Visualization-Tool/**
+
+![CI](https://github.com/rushilswork/HyAir-Data-Visualization-Tool/actions/workflows/ci.yml/badge.svg)
+
+**Stack:** vanilla JavaScript (ES modules) · Leaflet · Chart.js · Open-Meteo API · `node:test`. Hosted free on GitHub Pages; there is no backend and no stored user data (uploaded files are processed in the browser).
+
 **Features**
 - Live readings (PM2.5, PM10, NO₂, SO₂, O₃, CO, AQI) from the free [Open-Meteo Air Quality API](https://open-meteo.com/en/docs/air-quality-api), no API key needed
 - **US AQI** and an estimated **India NAQI** (CPCB breakpoints), switchable
@@ -37,4 +43,7 @@ Values are **modelled** (CAMS, ~11 km grid), not single ground-sensor readings. 
 | `js/cities.js` | City list |
 | `test/` | `node:test` unit tests |
 
-Pages deploy as-is on GitHub Pages. Hyderabad-first roots, now for all of India.
+## Hosting
+Static site, deployed on GitHub Pages from `main` (Settings → Pages → Deploy from a branch → `/ (root)`).
+
+Started as a Hyderabad-only map; now covers 14 cities across India.
