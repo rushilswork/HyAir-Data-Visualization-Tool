@@ -1,459 +1,121 @@
-/* Additional CSS for the provided HTML layout */
+:root {
+  --bg: #0b1017;
+  --panel: #141c27;
+  --panel-2: #1b2635;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e8eef6;
+  --muted: #9fb0c4;
+  --accent: #4cc9f0;
+  --radius: 14px;
+}
 
+* { box-sizing: border-box; }
+html { color-scheme: dark; }
 body {
-  font-family: 'Prompt', sans-serif;
   margin: 0;
-  padding: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 25, 1) 100%
-  );
-  width: 100%; /* Adjusted to full width */
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: radial-gradient(1200px 600px at 80% -10%, #12304a 0%, transparent 60%), var(--bg);
+  color: var(--text);
+  line-height: 1.5;
 }
+a { color: var(--accent); }
+.skip { position: absolute; left: -999px; }
+.skip:focus { left: 8px; top: 8px; background: var(--panel); padding: 8px 12px; z-index: 2000; border-radius: 8px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-nav {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 25, 1) 100%
-  );
-  color: white;
-  padding: 2px 0;
-  height: fit-content;
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px clamp(16px, 4vw, 40px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(11, 16, 23, 0.8); backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 1000;
 }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; color: var(--text); text-decoration: none; letter-spacing: 0.3px; }
+.topbar nav { display: flex; gap: 6px; }
+.topbar nav a { color: var(--muted); text-decoration: none; padding: 8px 14px; border-radius: 999px; }
+.topbar nav a:hover { color: var(--text); background: var(--panel); }
+.topbar nav a.active { color: #04202b; background: var(--accent); font-weight: 600; }
 
-nav ul {
-  list-style: none;
-  font-size: x-large;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  /* Use space-between to separate logo and menu items */
-}
-li.ul:hover {
-  color: rgb(60, 255, 0);
-  transition: 0.5s;
-}
+main { max-width: 1280px; margin: 0 auto; padding: 20px clamp(16px, 4vw, 40px) 40px; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; margin: 0 0 10px; }
+.hint { margin: 6px 0 14px; font-size: 0.9rem; }
 
-nav a {
-  text-decoration: none;
-  color: white;
+.controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; }
+.controls label { display: flex; flex-direction: column; font-size: 0.78rem; color: var(--muted); gap: 4px; }
+.controls label.check { flex-direction: row; align-items: center; gap: 6px; padding-bottom: 8px; font-size: 0.9rem; }
+select, button, .file {
+  background: var(--panel-2); color: var(--text); border: 1px solid var(--line);
+  border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 0.9rem; cursor: pointer;
 }
+button:hover, .file:hover, select:hover { border-color: var(--accent); }
+.file { display: inline-flex; align-items: center; position: relative; overflow: hidden; }
+.file input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.file:focus-within { outline: 2px solid var(--accent); }
+#updated { margin-left: auto; padding-bottom: 8px; font-size: 0.85rem; }
 
-.logo-icon {
-  margin-left: 40px;
-  margin-right: 40px;
-  height: 50px;
-  width: 50px;
-}
+.grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; margin-bottom: 16px; }
+.grid.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
+.card h2 { margin: 0 0 6px; font-size: 1.05rem; }
+.map-card { padding: 0; overflow: hidden; position: relative; }
+#map { height: 540px; background: #0e1520; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 10px 14px; font-size: 0.78rem; color: var(--muted); border-top: 1px solid var(--line); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 
-.logo {
-  font-size: x-large;
-  line-height: 80px; /* Adjust padding as needed */
-  font-weight: bold;
-  margin-right: 60px;
+.aq-marker-wrap { background: none; border: 0; }
+.aq-marker {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.95rem; color: #10161f; border: 3px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); transition: transform 0.15s;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
 }
-li.logo:hover {
-  color: rgb(60, 255, 0);
-  transition: 0.5s;
-}
+.aq-marker:hover, .aq-marker.sel { transform: scale(1.18); border-color: #fff; }
 
-.image-container {
-  position: relative;
-  top: 150px;
-  margin-left: 20px;
-  overflow: hidden;
-}
+.detail h2 { font-size: 1.3rem; }
+.aqi-badge { display: flex; align-items: baseline; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #444; }
+.aqi-badge b { font-size: 2.6rem; line-height: 1; }
+.aqi-badge span { font-weight: 600; }
+.best { color: var(--accent); font-size: 0.9rem; margin: 0 0 10px; }
+.pollutants { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px; }
+.poll { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: baseline; background: var(--panel-2); padding: 8px 10px; border-radius: 10px; font-size: 0.9rem; }
+.poll .dot { width: 9px; height: 9px; border-radius: 50%; align-self: center; }
+.poll small { grid-column: 2 / 4; color: var(--muted); font-size: 0.7rem; }
+.compare { display: flex; flex-direction: column; font-size: 0.78rem; color: var(--muted); gap: 4px; margin-bottom: 8px; }
 
-.city-image {
-  border-radius: 60px;
-  width: 16%;
-  height: 16%;
-  margin-left: 30px;
-  margin-right: 80px;
-  animation: scaleImage 2s infinite;
-}
+.chart-box { position: relative; height: 340px; }
+.chart-box.short { height: 260px; }
+.chart-box.tall { height: 340px; }
+.row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; background: transparent; padding: 6px 12px; }
+.seg button.on { background: var(--accent); color: #04202b; font-weight: 700; }
 
-.city-label {
-  font-size: large;
-  position: relative;
-  color: #ffffff;
-  left: -100px;
-}
+table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+tbody tr { cursor: pointer; }
+tbody tr:hover, tbody tr.sel { background: var(--panel-2); }
 
-#map {
-  margin-top: 100px;
-  margin-left: 120px;
-  border-radius: 10px;
-  height: 623px;
-  width: 750px;
-}
+#toasts { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 3000; }
+.toast { background: var(--panel-2); border: 1px solid var(--line); border-left: 4px solid var(--accent); padding: 10px 14px; border-radius: 10px; max-width: 340px; box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4); }
+.toast.error { border-left-color: #e74c3c; }
+.toast.success { border-left-color: #2ecc71; }
 
-#popout-container {
-  position: absolute;
-  top: 65%;
-  left: 79%;
-  width: 350px;
-  height: 600px;
-  margin-top: 500px;
-  color: rgb(0, 255, 17);
-  transform: translate(-50%, -50%);
-  padding: 10px;
-  border-radius: 20px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 25, 1) 100%
-  );
-  color: rgb(0, 255, 17);
-  box-shadow: 0 0 10px rgb(255, 255, 255); /* Add a box shadow with some transparency */
-}
+footer { text-align: center; color: var(--muted); font-size: 0.85rem; padding: 24px 16px 32px; border-top: 1px solid var(--line); }
 
-#popout-container2 {
-  position: relative;
-  left: 120px;
-  width: 1070px;
-  margin-top: 20px;
-  padding-right: 100px;
-  border-radius: 5px;
-  background-color: #878787;
-  color: rgb(0, 0, 0);
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  box-shadow: 0 0 10px rgb(255, 255, 255);
-}
+/* content pages */
+.prose { max-width: 820px; margin: 0 auto; }
+.prose h1 { font-size: 2rem; margin-top: 12px; }
+.prose h2 { margin-top: 32px; }
+.scale { width: 100%; }
+.scale td:first-child { width: 130px; font-weight: 700; }
+.swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 8px; vertical-align: -2px; }
 
-.chart-item {
-  margin-bottom: 20px;
-  text-align: center;
+@media (max-width: 900px) {
+  .grid, .grid.two { grid-template-columns: 1fr; }
+  #map { height: 420px; }
+  #updated { margin-left: 0; width: 100%; }
 }
-
-.circle-chart {
-  display: inline-block;
-  margin: 0 auto;
-  /* Center the circular chart */
-  max-width: 100%;
-  margin-left: 100px;
-  /* Limit the width to prevent overflow */
-}
-
-/* Custom marker styles */
-.custom-text-box {
-  background-image: url(images/greeen.ico);
-  background-repeat: no-repeat;
-  background-size: 80%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000000;
-  /* Marker color */
-  font-size: 12px;
-  /* Marker size */
-  /*text-shadow: 3px 3px 3px #3fc75f;*/
-  /* Optional text shadow */
-}
-
-.custom-yellow-text-box {
-  background-image: url(images/yelloww.ico);
-  background-repeat: no-repeat;
-  background-size: 80%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000000;
-  /* Marker color */
-  font-size: 12px;
-  /* Marker size */
-  /* Optional text shadow */
-}
-
-.custom-red-text-box {
-  background-image: url(images/reddd.ico);
-  background-repeat: no-repeat;
-  background-size: 80%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000000;
-  /* Marker color */
-  font-size: 12px;
-  /* Marker size */
-  /* Optional text shadow */
-}
-.air-index-text {
-  position: absolute;
-  top: 40%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  font-weight: bold;
-}
-
-/* Vertical bar styles */
-.vertical-bar {
-  position: absolute;
-  top: 790px;
-  left: 20px;
-  width: 20px;
-  height: 300px;
-  background: linear-gradient(to bottom, #00ff00 0%, #ffff00 50%, #ff0000 100%);
-  border-radius: 10px;
-}
-
-.bar-label {
-  position: absolute;
-  top: 747px;
-  left: 43px;
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.bar-label span {
-  position: relative;
-  display: block;
-  top: 50px;
-}
-
-.chart-container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.graph-container {
-  flex-basis: calc(16.66% - 20px);
-  /* Distribute equally among 6 columns (100% / 6) and account for margins */
-  text-align: center;
-}
-
-.circle-chart {
-  display: inline-block;
-  margin: 0 auto;
-  /* Center the circular chart */
-  max-width: 100%;
-  /* Limit the width to prevent overflow */
-}
-
-.circle-chart {
-  display: inline-block;
-  margin: 0 auto;
-  /* Center the circular chart */
-  max-width: 100%;
-  /* Limit the width to prevent overflow */
-}
-
-h3 {
-  color: rgb(0, 0, 0);
-}
-
-h4 {
-  position: relative;
-  left: -90px;
-  color: rgb(0, 0, 0);
-  display: inline-block;
-  text-size-adjust: auto;
-  margin-left: 220px;
-  text-align: justify;
-  top: 50px;
-}
-
-h4:hover {
-  color: #00ff00;
-}
-
-h6 {
-  color: #00ff00;
-  text-align: center;
-}
-
-@keyframes scaleImage {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(0.9);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-#popout-container h3:hover {
-  color: #ffffff;
-}
-
-#file-container {
-  margin: 20px;
-}
-
-#myfile {
-  display: none;
-  /* Hide the default file input */
-}
-
-#file-label {
-  background-color: #bdbdbd;
-  color: rgb(0, 0, 0);
-  padding: 5px 11px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: medium;
-}
-
-#file-label:hover {
-  background-color: #00ff00;
-}
-
-#myLocationButton {
-  position: relative;
-  top: 10px;
-  background-color: #bdbdbd;
-  margin-left: 110px;
-  color: rgb(0, 0, 0);
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-#myLocationButton:hover {
-  background-color: #00ff00;
-}
-
-footer {
-  position: relative;
-  height: 100px;
-  width: 100%;
-  text-align: center;
-  left: -15px;
-  line-height: 100px;
-  color: #00ff00;
-  font-size: 20px;
-  z-index: 1;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 25, 1) 100%
-  );
-}
-
-/* Add any other styles as needed */
-div h1 {
-  position: relative;
-  top: 100px;
-  left: 30px;
-  text-align: center;
-  color: #00ff00;
-}
-div h1:hover {
-  color: #00ff00;
-}
-.content {
-  position: relative;
-  top: 130px;
-  left: 130px;
-  width: 1000px;
-  text-align: justify;
-}
-#content-container {
-  display: flex;
-  align-items: center;
-}
-
-#table-container {
-  width: 40%;
-  margin-top: 20px;
-  margin-left: 80px;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 25, 1) 100%
-  );
-  box-shadow: 0 0 5px rgb(255, 255, 255);
-}
-
-table {
-  width: 100%;
-  font-size: 12px; /* Adjust the font size for smaller text */
-}
-
-th,
-td {
-  padding: 5px; /* Adjust the padding for a more compact layout */
-}
-
-th {
-  border-radius: 5%;
-  text-align: center;
-  background-color: #878787;
-  color: black;
-  box-shadow: 0 0 2px rgb(255, 255, 255);
-}
-
-td {
-  border-radius: 5%;
-  text-align: center;
-  color: rgb(0, 0, 0);
-  box-shadow: 0 0 2px rgb(255, 255, 255);
-  background-color: #ffffffd2;
-}
-
-th:hover {
-  background: #00ff00c2;
-}
-
-td:hover {
-  background: #ffffffc2;
-}
-
-.rankings-header {
-  font-size: 16px; /* Adjust the font size for the header */
-  color: #00ff00;
-}
-
-#chart-container {
-  margin-left: 20px;
-  width: 47%; /* Adjust the width of the chart */
-  height: 100px; /* Adjust the height of the chart */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.alert {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  border-radius: 5px;
-  color: #000000;
-  font-weight: bold;
-  text-align: center;
-  z-index: 9999;
-}
-
-.alert.success {
-  background-color: #00ff00e7;
-}
-
-.alert.error {
-  background-color: #f44336;
-}
-/* Add your existing styles here */
-#live-time {
-  background-color: #00ff00e7;
-  padding: 10px;
-  border-radius: 5%;
-  position: fixed;
-  top: 100px;
-  right: 10px;
-  font-size: 18px;
-  color: #000000;
-  z-index: 9999; /* Set a high z-index to ensure it is on top */
-}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

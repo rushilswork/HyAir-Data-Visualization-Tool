@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AQI guide - HyAir</title>
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="images/logo.svg" alt="" width="34" height="34"><span>HyAir</span></a>
+    <nav aria-label="Primary">
+      <a href="index.html">Map</a>
+      <a href="guide.html" class="active" aria-current="page">AQI guide</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+  <main class="prose">
+    <h1>Understanding the AQI</h1>
+    <p>An air quality index turns pollutant concentrations into one number. The worst pollutant sets the overall value.</p>
+    <h2>US AQI</h2>
+    <table class="scale"><tr><td><span class="swatch" style="background:#2ecc71"></span>0&ndash;50</td><td><strong>Good</strong><br><span class="muted">Air quality is satisfactory. Enjoy outdoor activities.</span></td></tr><tr><td><span class="swatch" style="background:#f1c40f"></span>51&ndash;100</td><td><strong>Moderate</strong><br><span class="muted">Unusually sensitive people should consider limiting prolonged outdoor exertion.</span></td></tr><tr><td><span class="swatch" style="background:#e67e22"></span>101&ndash;150</td><td><strong>Unhealthy for sensitive groups</strong><br><span class="muted">Children, older adults and people with asthma or heart disease should reduce outdoor exertion.</span></td></tr><tr><td><span class="swatch" style="background:#e74c3c"></span>151&ndash;200</td><td><strong>Unhealthy</strong><br><span class="muted">Everyone may begin to feel effects. Limit prolonged outdoor exertion; consider a mask outdoors.</span></td></tr><tr><td><span class="swatch" style="background:#9b59b6"></span>201&ndash;300</td><td><strong>Very unhealthy</strong><br><span class="muted">Health alert: avoid outdoor exertion and keep windows closed.</span></td></tr><tr><td><span class="swatch" style="background:#7e0023"></span>301+</td><td><strong>Hazardous</strong><br><span class="muted">Emergency conditions. Stay indoors with filtered air.</span></td></tr></table>
+    <h2>India NAQI</h2>
+    <table class="scale"><tr><td><span class="swatch" style="background:#2ecc71"></span>0&ndash;50</td><td><strong>Good</strong><br><span class="muted">Minimal impact.</span></td></tr><tr><td><span class="swatch" style="background:#9acd32"></span>51&ndash;100</td><td><strong>Satisfactory</strong><br><span class="muted">Minor breathing discomfort to sensitive people.</span></td></tr><tr><td><span class="swatch" style="background:#f1c40f"></span>101&ndash;200</td><td><strong>Moderate</strong><br><span class="muted">Breathing discomfort for people with lung, heart disease, children and older adults.</span></td></tr><tr><td><span class="swatch" style="background:#e67e22"></span>201&ndash;300</td><td><strong>Poor</strong><br><span class="muted">Breathing discomfort on prolonged exposure. Limit outdoor activity.</span></td></tr><tr><td><span class="swatch" style="background:#e74c3c"></span>301&ndash;400</td><td><strong>Very poor</strong><br><span class="muted">Respiratory illness on prolonged exposure. Avoid outdoor activity.</span></td></tr><tr><td><span class="swatch" style="background:#7e0023"></span>401+</td><td><strong>Severe</strong><br><span class="muted">Affects healthy people and seriously impacts those with existing disease. Stay indoors.</span></td></tr></table>
+    <h2>Pollutants</h2>
+    <ul>
+      <li><strong>PM2.5</strong>: fine particles that reach deep into the lungs and bloodstream. Usually the main driver of unhealthy days.</li>
+      <li><strong>PM10</strong>: coarser dust and road particles.</li>
+      <li><strong>NO&#8322;</strong>: from vehicles and combustion; irritates airways.</li>
+      <li><strong>SO&#8322;</strong>: from burning coal and oil; triggers asthma.</li>
+      <li><strong>O&#8323;</strong>: ground-level ozone forms in sunlight from other pollutants; peaks in the afternoon.</li>
+      <li><strong>CO</strong>: from incomplete combustion; matters mostly indoors or near heavy traffic.</li>
+    </ul>
+  </main>
+  <footer>Data: <a href="https://open-meteo.com/en/docs/air-quality-api">Open-Meteo</a> (CAMS) &middot; HyAir</footer>
+</body>
+</html>

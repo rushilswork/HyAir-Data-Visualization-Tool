@@ -1,153 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Air Quality Map</title>
-  <link rel="icon" type="image/x-icon" href="images/logo.ico">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+  <title>HyAir - Live Air Quality Map</title>
+  <meta name="description" content="Live air quality across Indian cities: map, rankings, 72-hour forecast and health guidance.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <nav>
-    <ul>
-      <li><img src="images/logo.ico" class="logo-icon"></li>
-      <li class="logo">HyAir</li>
-      <li style="margin-left: 50%;"><a class="active" href="index.html">Home</a></li>
-      <li style="margin-left: 60px"><a href="about.html">About</a></li>
-      <li style="margin-left: 70px"><a href="news.html">News</a></li>
-      <li style="margin-left: -40%;">
-        <div id="file-container">
-          <input type="file" id="myfile" name="myfile" style="display:none">
-          <label for="myfile" id="file-label">Choose a file</label>
-        </div>
-      </li>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="index.html"><img src="images/logo.svg" alt="" width="34" height="34"><span>HyAir</span></a>
+    <nav aria-label="Primary">
+      <a class="active" href="index.html" aria-current="page">Map</a>
+      <a href="guide.html">AQI guide</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-    </ul>
-  </nav>
+  <main id="main">
+    <section class="controls" aria-label="Map controls">
+      <label>Metric
+        <select id="metric"></select>
+      </label>
+      <label>Standard
+        <select id="standard">
+          <option value="us">US AQI</option>
+          <option value="in">India NAQI (estimated)</option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" id="heat"> Heat layer</label>
+      <button id="locate" type="button">My location</button>
+      <label class="file" title="Upload lat,lon,aqi,pm2.5,pm10,so2,o3,co,no2,city rows">
+        <input type="file" id="upload" accept=".txt,.csv"> Upload data
+      </label>
+      <button id="reset" type="button" hidden>Back to live data</button>
+      <button id="csv" type="button">Export CSV</button>
+      <button id="share" type="button">Copy link</button>
+      <span id="updated" class="muted" role="status"></span>
+    </section>
+    <p class="hint muted">Tip: click anywhere on the map to get the air quality at that exact spot.</p>
 
+    <div class="grid">
+      <section class="card map-card" aria-label="Map">
+        <div id="map"></div>
+        <div class="legend" id="legend" aria-label="Legend"></div>
+      </section>
 
-  <div class="image-container">
-    <img id="hyderabad-link" src="images/Hyd.jpeg" class="city-image">
-    <img id="mumbai-link" src="images/mumbai.jpeg" class="city-image">
-    <img id="delhi-link" src="images/delhi.jpeg" class="city-image">
-    <img id="ahmedabad-link" src="images/ahmedabad.jpeg" class="city-image">
-  </div>
-  <br><br><br> <br>
-  <h4 class="city-label" id="hyderabad-link">Hyderabad</h4>
-  <h4 style="margin-left: 250px;" class="city-label" id="mumbai-link">Mumbai</h4>
-  <h4 style="margin-left: 270px;" class="city-label" id="delhi-link">Delhi</h4>
-  <h4 style="margin-left: 270px;" class="city-label" id="ahmedabad-link">Ahmedabad</h4>
-
-  <br><br><br>
-
-  <div id="map"></div>
-  <div id="popout-container">
-    <label id="myLocationButton">My Location</label>
-    <h3 style="color: rgb(0, 255, 0);">Pollutant Levels for <span id="region-name">Regions</span></h3>
-
-  </div>
-
-  <div id="popout-container2">
-    <div id="pollutant-levels2" class="chart-container" style="margin-left: 20px;margin-top: 30px;">
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 0px;">PM2.5 Levels: </p>
-          <div id="pm25-chart" class="circle-chart"></div>
-        </div>
-      </div>
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 100px;">PM10 Levels: </p>
-          <div id="pm10-chart" class="circle-chart"></div>
-        </div>
-      </div>
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 200px;">SO2 Levels: </p>
-          <div id="so2-chart" class="circle-chart"></div>
-        </div>
-      </div>
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 300px;">O3 Levels: </p>
-          <div id="o3-chart" class="circle-chart"></div>
-        </div>
-      </div>
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 400px;">CO Levels: </p>
-          <div id="co-chart" class="circle-chart"></div>
-        </div>
-      </div>
-      <div class="graph-container">
-        <div class="chart-item">
-          <p style="position: relative; left: 500px;">NO2 Levels: </p>
-          <div id="no2-chart" class="circle-chart"></div>
-        </div>
-      </div>
+      <aside class="card detail" id="detail" aria-live="polite">
+        <h2 id="d-name">Select a city</h2>
+        <div class="aqi-badge" id="d-badge"><b id="d-aqi">-</b><span id="d-band"></span></div>
+        <p id="d-advice" class="muted"></p>
+        <p id="d-best" class="best"></p>
+        <div class="pollutants" id="d-poll"></div>
+        <label class="compare">Compare with
+          <select id="compare"><option value="">- none -</option></select>
+        </label>
+        <div class="chart-box short"><canvas id="radar" aria-label="Pollutant comparison radar chart" role="img"></canvas></div>
+      </aside>
     </div>
 
-  </div>
-
-  <!-- Vertical bar and bar labels -->
-  <div class="vertical-bar"></div>
-  <div class="bar-label">
-    <span>Good</span>
-    <br><br><br><br><br>
-    <span>Moderate</span>
-    <br><br><br><br>
-    <span>Poor</span>
-  </div>
-
-  <div id="content-container">
-    <div id="table-container">
-      <h3 class="rankings-header" style="margin-left: 210px;">City Rankings</h3>
-      <table id="data-table">
-        <thead>
-          <tr>
-            <th>City Name</th>
-            <th>AQI</th>
-          </tr>
-        </thead>
-        <tbody id="data-body">
-          <!-- Your table body content... -->
-        </tbody>
-      </table>
+    <div class="grid two">
+      <section class="card">
+        <h2>Rankings</h2>
+        <p class="muted small">Cleanest first. Click a row to focus the city.</p>
+        <table id="ranking">
+          <thead><tr><th>#</th><th>City</th><th>AQI</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+      <section class="card">
+        <h2>AQI by city</h2>
+        <div class="chart-box"><canvas id="bars" aria-label="AQI by city bar chart" role="img"></canvas></div>
+      </section>
     </div>
 
-    <div id="chart-container">
-      <canvas id="bar-chart"></canvas>
-    </div>
-  </div>
-  <div id="alert-container"></div>
+    <section class="card">
+      <div class="row-between">
+        <h2 id="t-title">Trend</h2>
+        <div class="seg" id="range" role="group" aria-label="Time range">
+          <button data-h="24" type="button">24h</button>
+          <button data-h="72" type="button" class="on">3 days</button>
+          <button data-h="144" type="button">6 days</button>
+        </div>
+      </div>
+      <p class="muted small">Past 3 days and a 3-day forecast. The dashed line marks the current hour.</p>
+      <div class="chart-box tall"><canvas id="trend" aria-label="Hourly trend chart" role="img"></canvas></div>
+    </section>
+  </main>
 
-  <div id="live-time"></div>
+  <div id="toasts" aria-live="assertive"></div>
+  <footer>Data: <a href="https://open-meteo.com/en/docs/air-quality-api">Open-Meteo</a> (CAMS) &middot; Map: &copy; OpenStreetMap contributors &middot; HyAir</footer>
 
-
-
-
-  <footer>
-    Copyright - 2023 by HyAir
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/chartjs-plugin-chartjs-3d@1.2.0/dist/chartjs-plugin-chartjs-3d.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script type="module" src="js/app.js"></script>
 </body>
-
 </html>

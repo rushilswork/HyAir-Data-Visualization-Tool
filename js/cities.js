@@ -1,0 +1,16 @@
+export const CITIES = [
+  { id: 'hyderabad', name: 'Hyderabad', lat: 17.385, lon: 78.4867 },
+  { id: 'delhi', name: 'Delhi', lat: 28.6139, lon: 77.209 },
+  { id: 'mumbai', name: 'Mumbai', lat: 19.076, lon: 72.8777 },
+  { id: 'chennai', name: 'Chennai', lat: 13.0827, lon: 80.2707 },
+  { id: 'kolkata', name: 'Kolkata', lat: 22.5726, lon: 88.3639 },
+  { id: 'bengaluru', name: 'Bengaluru', lat: 12.9716, lon: 77.5946 },
+  { id: 'ahmedabad', name: 'Ahmedabad', lat: 23.0225, lon: 72.5714 },
+  { id: 'lucknow', name: 'Lucknow', lat: 26.8467, lon: 80.9462 },
+  { id: 'patna', name: 'Patna', lat: 25.5941, lon: 85.1376 },
+  { id: 'kochi', name: 'Kochi', lat: 9.9312, lon: 76.2673 },
+  { id: 'visakhapatnam', name: 'Visakhapatnam', lat: 17.6868, lon: 83.2185 },
+  { id: 'goa', name: 'Panaji (Goa)', lat: 15.4909, lon: 73.8278 },
+  { id: 'jaipur', name: 'Jaipur', lat: 26.9124, lon: 75.7873 },
+  { id: 'pune', name: 'Pune', lat: 18.5204, lon: 73.8567 },
+]

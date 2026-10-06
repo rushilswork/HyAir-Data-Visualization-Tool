@@ -1,0 +1,12 @@
+{
+  "name": "hyair",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live air quality map for Indian cities",
+  "scripts": {
+    "start": "npx --yes serve .",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
